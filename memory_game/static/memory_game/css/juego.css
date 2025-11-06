@@ -1,0 +1,136 @@
+/* 🎨 Fondo y texto */
+body {
+  background-color: #222;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+/* 🧩 Contenedor del tablero (si tu HTML usa .card-container, mantenemos esa clase) */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(60px, 1fr)); /* Se ajusta al ancho disponible */
+  gap: 10px;
+  justify-content: center;
+  justify-items: center;
+  margin: 0 auto;
+  max-width: 400px; /* evita que crezca demasiado */
+  padding: 10px;
+}
+
+/* 🃏 Carta adaptable */
+.memory-card {
+  width: 100%;              /* ocupa toda su celda */
+    aspect-ratio: 1 / 1;      /* mantiene proporción cuadrada */
+  background-color: #0d6efd;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+/* Hover en escritorio */
+.memory-card:hover {
+  transform: scale(1.05);
+  background-color: #1a76ff;
+}
+.memory-card:active {
+  transform: scale(0.95);
+}
+/* Estados de juego */
+.flipped {
+  background-color: #ffc107;
+  color: black;
+}
+
+.matched {
+  background-color: #28a745;
+  color: white;
+  transform: scale(0.95);
+  opacity: 0.9;
+}
+
+/* 📱 Responsividad */
+@media (max-width: 768px) {
+  .card-container {
+    width: 95vw;
+    gap: 8px;
+  }
+  .memory-card {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-container {
+    width: 95vw;
+    gap: 6px;
+  }
+  .memory-card {
+    font-size: 1.3rem;
+  }
+}
+
+
+/* 🎯 Modal personalizado centrado */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  backdrop-filter: blur(3px);
+}
+
+/* 💬 Contenedor del modal */
+.modal-content {
+  background-color: #dc3545; /* rojo para "perder" */
+  color: white;
+  border-radius: 15px;
+  padding: 25px 20px;
+  text-align: center;
+  width: 90%;
+  max-width: 360px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  animation: aparecer 0.3s ease;
+}
+
+/* efecto al aparecer */
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* botón dentro del modal */
+.modal-content button {
+  margin-top: 10px;
+  border: none;
+  background-color: #000;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.modal-content button:hover {
+  background-color: #222;
+}
+
+/* Ocultar el modal cuando no se usa */
+.modal-overlay.hidden {
+  display: none;
+}
+

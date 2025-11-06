@@ -1,0 +1,43 @@
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Cards generales */
+.card {
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+/* Botones y textos */
+.btn {
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+/* Centrado vertical */
+.center-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  text-align: center;
+}
+/* 🎮 Estilo de botones del menú principal */
+.nivel-btn {
+  width: 90%;              /* ancho casi completo en móvil */
+  max-width: 400px;        /* límite de ancho en pantallas grandes */
+  font-size: 1.3rem;       /* texto grande */
+  padding: 15px 0;         /* más altura para el botón */
+  border-radius: 12px;     /* bordes suaves */
+  font-weight: 600;        /* texto más fuerte */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+/* efecto hover */
+.nivel-btn:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}

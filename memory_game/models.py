@@ -10,3 +10,4 @@ class Partida(models.Model):
 
     def __str__(self):
         return f"{self.usuario.username} - {self.resultado} ({self.nivel})"
+    

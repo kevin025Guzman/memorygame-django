@@ -153,11 +153,25 @@
                 intentos--;
                 intentosSpan.textContent = intentos;
                 if (intentos <= 0) {
-
+                    function registrarResultado(resultado, tiempoRestante) {
+                    fetch("/registrar-partida/", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRFToken": "{{ csrf_token }}",
+                        },
+                        body: JSON.stringify({
+                            nivel: "{{ nivel }}",
+                            resultado: resultado,
+                            tiempo_restante: tiempoRestante,
+                        }),
+                    });
+                }
                     clearInterval(cuentaRegresiva);
                     audioMain.pause();
                     audioMain.currentTime = 0;
                     audioLose.play();
+                    registrarResultado("derrota", tiempo);
                     modalLose.show();
                 }
             }
@@ -168,7 +182,20 @@
             const todas = document.querySelectorAll('.memory-card');
             const ganadas = document.querySelectorAll('.matched');
             if (ganadas.length === todas.length) {
-
+                function registrarResultado(resultado, tiempoRestante) {
+                    fetch("/registrar-partida/", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRFToken": "{{ csrf_token }}",
+                        },
+                        body: JSON.stringify({
+                            nivel: "{{ nivel }}",
+                            resultado: resultado,
+                            tiempo_restante: tiempoRestante,
+                        }),
+                    });
+                }
                 
                 audioMain.pause();
                 audioMain.currentTime = 0;
@@ -183,6 +210,21 @@
             tiempo--;
             tiempoSpan.textContent = tiempo;
             if (tiempo <= 0) {
+                function registrarResultado(resultado, tiempoRestante) {
+                    fetch("/registrar-partida/", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRFToken": "{{ csrf_token }}",
+                        },
+                        body: JSON.stringify({
+                            nivel: "{{ nivel }}",
+                            resultado: resultado,
+                            tiempo_restante: tiempoRestante,
+                        }),
+                    });
+                }
+
                 clearInterval(cuentaRegresiva);
                 audioMain.pause();
                 audioMain.currentTime = 0;

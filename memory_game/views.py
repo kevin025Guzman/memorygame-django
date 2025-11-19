@@ -8,6 +8,10 @@ from django.db.models import Avg, Count
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.db.models import Count
+from django.core.paginator import Paginator
+from django.db.models import Avg
+
 
 from memory_game import models
 
@@ -114,26 +118,34 @@ def registrar_partida(request):
 
 @login_required
 def perfil(request):
+    # Filtrar partidas del usuario actual
     partidas = Partida.objects.filter(usuario=request.user).order_by('-fecha')
 
+    # Paginación (10 partidas por página)
+    paginator = Paginator(partidas, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    # Estadísticas generales
+    total_partidas = partidas.count()
     total_victorias = partidas.filter(resultado='victoria').count()
     total_derrotas = partidas.filter(resultado='derrota').count()
-    total_partidas = partidas.count()
+    promedio_tiempo = partidas.filter(resultado='victoria').aggregate(Avg('tiempo_restante'))['tiempo_restante__avg'] or 0
 
-    promedio_tiempo = partidas.aggregate(Avg('tiempo_restante'))['tiempo_restante__avg'] or 0
-    nivel_mas_jugado = partidas.values('nivel').annotate(total=Count('nivel')).order_by('-total').first()
+    
 
-    nivel_mas_jugado = nivel_mas_jugado['nivel'] if nivel_mas_jugado else "N/A"
+    nivel_mas_jugado_data = partidas.values('nivel').annotate(total=Count('nivel')).order_by('-total').first()
+    nivel_mas_jugado = nivel_mas_jugado_data['nivel'] if nivel_mas_jugado_data else 'N/A'
 
-    contexto = {
-        'partidas': partidas,
+    context = {
+        'total_partidas': total_partidas,
         'total_victorias': total_victorias,
         'total_derrotas': total_derrotas,
-        'total_partidas': total_partidas,
         'promedio_tiempo': round(promedio_tiempo, 2),
         'nivel_mas_jugado': nivel_mas_jugado,
+        'page_obj': page_obj,
     }
 
-    return render(request, 'memory_game/perfil.html', contexto)
+    return render(request, 'memory_game/perfil.html', context)
 
 

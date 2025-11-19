@@ -1,45 +1,87 @@
 {% extends 'memory_game/base.html' %}
 {% block title %}Perfil{% endblock %}
 {% load static %}
-
 {% block content %}
-  <div class="container py-5 text-center">
-    <h2 class="text-center mb-4">🏆 Perfil de {{ user.username }}</h2>
+<div class="center-box">
+  <h2 class="mb-4">🏆 Perfil de {{ user.username }}</h2>
 
-    <div class="card bg-secondary text-light p-3 mb-4">
-      <h5>Total de partidas: {{ total_partidas }}</h5>
-      <h5>Victorias: {{ total_victorias }}</h5>
-      <h5>Derrotas: {{ total_derrotas }}</h5>
-      <h5>Tiempo promedio: {{ promedio_tiempo }} s</h5>
-      <h5>Nivel más jugado: {{ nivel_mas_jugado|title }}</h5>
-    </div>
+  <!-- 📊 Estadísticas generales -->
+  <div class="card bg-secondary text-light mb-4 p-3 w-100 w-md-75 w-lg-50 mx-auto">
+    <p><strong>Total de partidas:</strong> {{ total_partidas }}</p>
+    <p><strong>Victorias:</strong> {{ total_victorias }}</p>
+    <p><strong>Derrotas:</strong> {{ total_derrotas }}</p>
+    <p><strong>Tiempo promedio:</strong> {{ promedio_tiempo }} s</p>
+    <p><strong>Nivel más jugado:</strong> {{ nivel_mas_jugado|title }}</p>
+  </div>
 
-    <h4>📜 Historial de partidas</h4>
-    <table class="table table-dark table-striped mt-3">
-      <thead>
+   
+
+  <!-- 🕹️ Tabla de partidas -->
+  <div class="table-responsive mb-4">
+    <table class="table table-dark table-striped table-bordered align-middle text-center">
+      <thead class="table-primary text-dark">
         <tr>
           <th>Fecha</th>
           <th>Nivel</th>
           <th>Resultado</th>
-          <th>Tiempo restante</th>
+          <th>Tiempo (s)</th>
         </tr>
       </thead>
       <tbody>
-        {% for p in partidas %}
+        {% for partida in page_obj %}
         <tr>
-          <td>{{ p.fecha|date:"d/m/Y H:i" }}</td>
-          <td>{{ p.nivel|title }}</td>
-          <td>{{ p.resultado|title }}</td>
-          <td>{{ p.tiempo_restante }} s</td>
+          <td>{{ partida.fecha|date:"d/m/Y H:i" }}</td>
+          <td>{{ partida.nivel|title }}</td>
+          <td>
+            {% if partida.resultado == "victoria" %}
+              <span class="badge bg-success">Ganado</span>
+            {% else %}
+              <span class="badge bg-danger">Perdido</span>
+            {% endif %}
+          </td>
+          <td>{{ partida.tiempo_restante|floatformat:2 }}</td>
         </tr>
         {% empty %}
-        <tr><td colspan="4" class="text-center">No hay partidas registradas aún.</td></tr>
+        <tr>
+          <td colspan="4">No hay partidas registradas</td>
+        </tr>
         {% endfor %}
       </tbody>
     </table>
-
-    <div class="text-center mt-4">
-      <a href="{% url 'index' %}" class="btn btn-primary nivel-btn">Volver al Inicio</a>
-    </div>
   </div>
+
+  <!-- 📄 Paginación -->
+  {% if page_obj.has_other_pages %}
+  <nav aria-label="Paginación de partidas">
+    <ul class="pagination justify-content-center">
+      {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+      </li>
+      {% else %}
+      <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+        {% else %}
+          <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+      </li>
+      {% else %}
+      <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
+      {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+
+  <a href="{% url 'index' %}" class="btn btn-primary mt-3">Volver al Inicio</a>
+</div>
 {% endblock %}
+

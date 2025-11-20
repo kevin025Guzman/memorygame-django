@@ -8,9 +8,8 @@ from django.db.models import Avg, Count
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-from django.db.models import Count
 from django.core.paginator import Paginator
-from django.db.models import Avg
+
 
 
 from memory_game import models
@@ -78,14 +77,14 @@ def juego(request):
 
     # Configuración según nivel
     if nivel == 'basico':
-        intentos = 10
-        tiempo = 60
+        intentos = 20
+        tiempo = 120
     elif nivel == 'medio':
-        intentos = 6
-        tiempo = 50
+        intentos = 12
+        tiempo = 80
     else:
-        intentos = 4
-        tiempo = 40
+        intentos = 8
+        tiempo = 60
 
     contexto = {
         'nivel': nivel,

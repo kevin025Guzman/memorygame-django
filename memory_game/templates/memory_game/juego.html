@@ -7,181 +7,181 @@
 {% endblock %}
 
 {% block content %}
-    <div class=" py-4">
-        <h2>🎯 Nivel: {{ nivel|title }}</h2>
-        <h5>Intentos restantes: <span id="intentos">{{ intentos }}</span></h5>
-        <h5>⏰ Tiempo restante: <span id="tiempo">{{ tiempo }}</span> s</h5>
+<div class=" py-4">
+    <h2>🎯 Nivel: {{ nivel|title }}</h2>
+    <h5>Intentos restantes: <span id="intentos">{{ intentos }}</span></h5>
+    <h5>⏰ Tiempo restante: <span id="tiempo">{{ tiempo }}</span> s</h5>
 
-        <div class="card-container" id="tablero" ></div>
+    <div class="card-container" id="tablero"></div>
 
-        <div class="mt-4">
-            <a href="{% url 'seleccion_nivel' %}" class="btn btn-secondary nivel-btn">Cambiar Nivel</a>
-            <a href="{% url 'index' %}" class="btn btn-primary nivel-btn">Volver al Inicio</a>
+    <div class="mt-4">
+        <a href="{% url 'seleccion_nivel' %}" class="btn btn-secondary nivel-btn">Cambiar Nivel</a>
+        <a href="{% url 'index' %}" class="btn btn-primary nivel-btn">Volver al Inicio</a>
+    </div>
+
+
+</div>
+
+
+
+<!-- 🎵 Audios -->
+<audio id="audioMatch" src="{% static 'memory_game/audio/match.mp3' %}" preload="auto"></audio>
+
+<audio id="audioMain" src="{% static 'memory_game/audio/main.mp3' %}" preload="auto" loop></audio>
+<audio id="audioWin" src="{% static 'memory_game/audio/win.mp3' %}" preload="auto"></audio>
+<audio id="audioLose" src="{% static 'memory_game/audio/lose.mp3' %}" preload="auto"></audio>
+
+<!-- 🏆 Modal de victoria -->
+<div class="modal fade" id="modalWin" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+    data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content bg-success text-light text-center p-4">
+            <h3>🎉 ¡Felicidades!</h3>
+            <p>Completaste el juego correctamente.</p>
+            <button class="btn btn-light mt-3" onclick="location.reload()">Volver a jugar</button>
         </div>
-       
-
     </div>
-
-
-
-    <!-- 🎵 Audios -->
-    <audio id="audioMatch" src="{% static 'memory_game/audio/match.mp3' %}" preload="auto"></audio>
-
-    <audio id="audioMain" src="{% static 'memory_game/audio/main.mp3' %}" preload="auto" loop></audio>
-    <audio id="audioWin" src="{% static 'memory_game/audio/win.mp3' %}" preload="auto"></audio>
-    <audio id="audioLose" src="{% static 'memory_game/audio/lose.mp3' %}" preload="auto"></audio>
-
-   <!-- 🏆 Modal de victoria -->
-<div class="modal fade" id="modalWin" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-  <div class="modal-dialog modal-dialog-centered modal-sm">
-    <div class="modal-content bg-success text-light text-center p-4">
-      <h3>🎉 ¡Felicidades!</h3>
-      <p>Completaste el juego correctamente.</p>
-      <button class="btn btn-light mt-3" onclick="location.reload()">Volver a jugar</button>
-    </div>
-  </div>
 </div>
 
 <!-- 💀 Modal de derrota -->
-<div class="modal fade" id="modalLose" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-  <div class="modal-dialog modal-dialog-centered modal-sm">
-    <div class="modal-content bg-danger text-light text-center p-4">
-      <h3>😢 Has perdido</h3>
-      <p>Se acabaron los intentos o el tiempo.</p>
-      <button class="btn btn-light mt-3" onclick="location.reload()">Intentar de nuevo</button>
+<div class="modal fade" id="modalLose" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+    data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content bg-danger text-light text-center p-4">
+            <h3>😢 Has perdido</h3>
+            <p>Se acabaron los intentos o el tiempo.</p>
+            <button class="btn btn-light mt-3" onclick="location.reload()">Intentar de nuevo</button>
+        </div>
     </div>
-  </div>
 </div>
 
 
-    <!-- Bootstrap JS (para los modales) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap JS (para los modales) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 
-    <script>
-        const tablero = document.getElementById('tablero');
-        const intentosSpan = document.getElementById('intentos');
-        const tiempoSpan = document.getElementById('tiempo');
-        // Elementos de audio y modales
-        const audioMain = document.getElementById('audioMain');
-        const audioWin = document.getElementById('audioWin');
-        const audioLose = document.getElementById('audioLose');
-        const modalWin = new bootstrap.Modal(document.getElementById('modalWin'));
-        const modalLose = new bootstrap.Modal(document.getElementById('modalLose'));
-        const audioMatch = document.getElementById('audioMatch');
+<script>
+    const tablero = document.getElementById('tablero');
+    const intentosSpan = document.getElementById('intentos');
+    const tiempoSpan = document.getElementById('tiempo');
+    // Elementos de audio y modales
+    const audioMain = document.getElementById('audioMain');
+    const audioWin = document.getElementById('audioWin');
+    const audioLose = document.getElementById('audioLose');
+    const modalWin = new bootstrap.Modal(document.getElementById('modalWin'));
+    const modalLose = new bootstrap.Modal(document.getElementById('modalLose'));
+    const audioMatch = document.getElementById('audioMatch');
 
-        audioMatch.volume = 0.6;
-        audioMain.volume = 0.4;
-        audioWin.volume = 0.7;
-        audioLose.volume = 0.7;
+    audioMatch.volume = 0.6;
+    audioMain.volume = 0.4;
+    audioWin.volume = 0.7;
+    audioLose.volume = 0.7;
 
-        // Reproducir música de fondo al iniciar el juego
-        window.addEventListener('click', () => {
-            // Esto se usa para evitar bloqueos de autoplay en navegadores
-            if (audioMain.paused) {
-                audioMain.play();
-            }
-        }, { once: true });
+    // Reproducir música de fondo al iniciar el juego
+    window.addEventListener('click', () => {
+        // Esto se usa para evitar bloqueos de autoplay en navegadores
+        if (audioMain.paused) {
+            audioMain.play();
+        }
+    }, { once: true });
 
 
-        let intentos = parseInt(intentosSpan.textContent);
-        let tiempo = parseInt(tiempoSpan.textContent);
-        let cartasVolteadas = [];
-        let bloqueado = false;
+    let intentos = parseInt(intentosSpan.textContent);
+    let tiempo = parseInt(tiempoSpan.textContent);
+    let cartasVolteadas = [];
+    let bloqueado = false;
 
-        // Crear pares de cartas (8 pares = 16 cartas)
-        const simbolos = ['🍎', '🍌', '🍇', '🍒', '🍉', '🍋', '🍓', '🍍'];
-        let cartas = [...simbolos, ...simbolos];
+    // Crear pares de cartas (8 pares = 16 cartas)
+    const simbolos = [
+        'cerdo.png',
+        'cocodrilo.png',
+        'gorila.png',
+        'leon.png',
+        'panda.png',
+        'pinguino.png',
+        'pollo.png',
+        'tigre.png'
+    ];
+    let cartas = [...simbolos, ...simbolos];
 
-        function registrarResultado(resultado, tiempoRestante) {
-                    fetch("/registrar-partida/", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "X-CSRFToken": "{{ csrf_token }}",
-                        },
-                        body: JSON.stringify({
-                            nivel: "{{ nivel }}",
-                            resultado: resultado,
-                            tiempo_restante: tiempoRestante,
-                        }),
-                    });
-                }
-
-        // Mezclar las cartas
-        cartas.sort(() => Math.random() - 0.5);
-
-        // Crear el tablero
-        cartas.forEach((simbolo, index) => {
-            const div = document.createElement('div');
-            div.classList.add('memory-card');
-            div.dataset.simbolo = simbolo;
-            div.textContent = '?';
-            div.addEventListener('click', () => voltearCarta(div));
-
-            tablero.appendChild(div);
+    function registrarResultado(resultado, tiempoRestante) {
+        fetch("/registrar-partida/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}",
+            },
+            body: JSON.stringify({
+                nivel: "{{ nivel }}",
+                resultado: resultado,
+                tiempo_restante: tiempoRestante,
+            }),
         });
+    }
 
-        function voltearCarta(carta) {
-            if (bloqueado || carta.classList.contains('matched') || cartasVolteadas.includes(carta)) return;
+    // Mezclar las cartas
+    cartas.sort(() => Math.random() - 0.5);
 
-            carta.textContent = carta.dataset.simbolo;
-            carta.classList.add('flipped');
-            cartasVolteadas.push(carta);
+    // Crear el tablero
+    cartas.forEach((simbolo, index) => {
+        const div = document.createElement('div');
+        div.classList.add('memory-card');
+        div.dataset.simbolo = simbolo;
 
-            if (cartasVolteadas.length === 2) {
-                bloqueado = true;
-                setTimeout(() => {
-                    verificarPareja();
-                    bloqueado = false;
-                }, 800);
-            }
+        const img = document.createElement('img');
+        img.src = `/static/memory_game/img/cartas/${simbolo}`;
+        img.alt = simbolo.split('.')[0];
+        img.classList.add('carta-img');
+        img.style.visibility = 'hidden'; // oculta al inicio
+
+        div.appendChild(img);
+        div.addEventListener('click', () => voltearCarta(div));
+
+
+        tablero.appendChild(div);
+    });
+
+    function voltearCarta(carta) {
+        if (bloqueado || carta.classList.contains('matched') || cartasVolteadas.includes(carta)) return;
+
+
+        const img = carta.querySelector('img');
+        img.style.visibility = 'visible';
+        carta.classList.add('flipped');
+        cartasVolteadas.push(carta);
+
+        if (cartasVolteadas.length === 2) {
+            bloqueado = true;
+            setTimeout(() => {
+                verificarPareja();
+                bloqueado = false;
+            }, 800);
         }
+    }
 
-        function verificarPareja() {
-            const [c1, c2] = cartasVolteadas;
-            if (c1.dataset.simbolo === c2.dataset.simbolo) {
-                c1.classList.add('matched');
-                c2.classList.add('matched');
-                audioMatch.currentTime = 0; // Reinicia el sonido si se emparejan rápido
-                audioMatch.play();
-            } else {
-                c1.textContent = '?';
-                c2.textContent = '?';
-                c1.classList.remove('flipped');
-                c2.classList.remove('flipped');
-                intentos--;
-                intentosSpan.textContent = intentos;
-                if (intentos <= 0) {
-                    function registrarResultado(resultado, tiempoRestante) {
-                    fetch("/registrar-partida/", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "X-CSRFToken": "{{ csrf_token }}",
-                        },
-                        body: JSON.stringify({
-                            nivel: "{{ nivel }}",
-                            resultado: resultado,
-                            tiempo_restante: tiempoRestante,
-                        }),
-                    });
-                }
-                    clearInterval(cuentaRegresiva);
-                    audioMain.pause();
-                    audioMain.currentTime = 0;
-                    audioLose.play();
-                    registrarResultado("derrota", tiempo);
-                    modalLose.show();
-                }
-            }
+    function verificarPareja() {
+        const [c1, c2] = cartasVolteadas;
 
-            cartasVolteadas = [];
+        const img1 = c1.querySelector('img');
+        const img2 = c2.querySelector('img');
 
-            // Verificar victoria
-            const todas = document.querySelectorAll('.memory-card');
-            const ganadas = document.querySelectorAll('.matched');
-            if (ganadas.length === todas.length) {
+
+        if (c1.dataset.simbolo === c2.dataset.simbolo) {
+            c1.classList.add('matched');
+            c2.classList.add('matched');
+            img1.style.visibility = 'visible';
+            img2.style.visibility = 'visible';
+            audioMatch.currentTime = 0; // Reinicia el sonido si se emparejan rápido
+            audioMatch.play();
+        } else {
+            img1.style.visibility = 'hidden';
+            img2.style.visibility = 'hidden';
+            c1.classList.remove('flipped');
+            c2.classList.remove('flipped');
+            intentos--;
+            intentosSpan.textContent = intentos;
+
+            if (intentos <= 0) {
                 function registrarResultado(resultado, tiempoRestante) {
                     fetch("/registrar-partida/", {
                         method: "POST",
@@ -196,43 +196,72 @@
                         }),
                     });
                 }
-                
-                audioMain.pause();
-                audioMain.currentTime = 0;
-                registrarResultado("victoria", tiempo);
-                audioWin.play();
-                modalWin.show();
-            }
-        }
-
-        // Temporizador
-        const cuentaRegresiva = setInterval(() => {
-            tiempo--;
-            tiempoSpan.textContent = tiempo;
-            if (tiempo <= 0) {
-                function registrarResultado(resultado, tiempoRestante) {
-                    fetch("/registrar-partida/", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "X-CSRFToken": "{{ csrf_token }}",
-                        },
-                        body: JSON.stringify({
-                            nivel: "{{ nivel }}",
-                            resultado: resultado,
-                            tiempo_restante: tiempoRestante,
-                        }),
-                    });
-                }
-
                 clearInterval(cuentaRegresiva);
                 audioMain.pause();
                 audioMain.currentTime = 0;
-                registrarResultado("derrota", 0);
                 audioLose.play();
+                registrarResultado("derrota", tiempo);
                 modalLose.show();
             }
-        }, 1000);
-    </script>
+        }
+
+        cartasVolteadas = [];
+
+        // Verificar victoria
+        const todas = document.querySelectorAll('.memory-card');
+        const ganadas = document.querySelectorAll('.matched');
+        if (ganadas.length === todas.length) {
+            function registrarResultado(resultado, tiempoRestante) {
+                fetch("/registrar-partida/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": "{{ csrf_token }}",
+                    },
+                    body: JSON.stringify({
+                        nivel: "{{ nivel }}",
+                        resultado: resultado,
+                        tiempo_restante: tiempoRestante,
+                    }),
+                });
+            }
+
+            audioMain.pause();
+            audioMain.currentTime = 0;
+            registrarResultado("victoria", tiempo);
+            audioWin.play();
+            modalWin.show();
+        }
+    }
+
+    // Temporizador
+    const cuentaRegresiva = setInterval(() => {
+        tiempo--;
+        tiempoSpan.textContent = tiempo;
+        if (tiempo <= 0) {
+            function registrarResultado(resultado, tiempoRestante) {
+                fetch("/registrar-partida/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": "{{ csrf_token }}",
+                    },
+                    body: JSON.stringify({
+                        nivel: "{{ nivel }}",
+                        resultado: resultado,
+                        tiempo_restante: tiempoRestante,
+                    }),
+                });
+            }
+
+            clearInterval(cuentaRegresiva);
+            audioMain.pause();
+            audioMain.currentTime = 0;
+            registrarResultado("derrota", 0);
+            audioLose.play();
+            modalLose.show();
+        }
+    }, 1000);
+</script>
 
 {% endblock %}

@@ -5,24 +5,24 @@
   {% block content %}
 
   <div class="container py-5 text-center">
-    <h2 class="mb-4">🎯 Selecciona el Nivel de Dificultad</h2>
+    <h2 class="mb-4 text-light">🎯 Selecciona el Nivel de Dificultad</h2>
 
     <form method="POST">
       {% csrf_token %}
       <div class="row justify-content-center">
         <div class="col-md-3">
           <button type="submit" name="nivel" value="basico" class="btn btn-success btn-lg w-100 mb-3">
-            🟢 Básico<br><small>10 intentos - Tablero 4x4</small>
+            🟢 Básico<br><small>20 intentos - Tablero 4x4</small>
           </button>
         </div>
         <div class="col-md-3">
           <button type="submit" name="nivel" value="medio" class="btn btn-warning btn-lg w-100 mb-3">
-            🟡 Medio<br><small>6 intentos - Tablero 4x4</small>
+            🟡 Medio<br><small>12 intentos - Tablero 4x4</small>
           </button>
         </div>
         <div class="col-md-3">
           <button type="submit" name="nivel" value="avanzado" class="btn btn-danger btn-lg w-100 mb-3">
-            🔴 Avanzado<br><small>4 intentos - Tablero 4x4</small>
+            🔴 Avanzado<br><small>8 intentos - Tablero 4x4</small>
           </button>
         </div>
       </div>

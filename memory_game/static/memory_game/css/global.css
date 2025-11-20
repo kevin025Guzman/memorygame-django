@@ -1,5 +1,13 @@
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif;             /* Ocupa toda la altura de la pantalla */
+}
+
+body.app-body {
+  background-image: url("/static/memory_game/img/fondos/azul2.jpg");
+  background-size: cover;        /* La imagen ocupa todo el contenedor */
+  background-position: center;   /* Centrada */
+  background-repeat: no-repeat;  /* No se repite */
+  min-height: 100vh;             /* Ocupa toda la altura de la pantalla */
 }
 
 /* Cards generales */
@@ -41,3 +49,9 @@ body {
   transform: scale(1.05);
   filter: brightness(1.1);
 }
+
+
+
+
+
+

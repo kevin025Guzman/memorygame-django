@@ -4,13 +4,13 @@
 
 {% block content %}
    <div class="center-box">
-        <h1 class="mb-4"><img src="{% static 'memory_game/icono.svg' %}" alt="Mi icono" width="50" height="50"> Memory Game</h1>
+        <h1 class="mb-4 text-light"><img src="{% static 'memory_game/icono.svg' %}" alt="Mi icono" width="50" height="50"> Memory Game</h1>
         {% if user.is_authenticated %}
-        <p>Bienvenido, {{ user.username }} 👋!</p>
+        <p class="text-light">Bienvenido, {{ user.username }} 👋!</p>
        
         {% if nivel %}
    
-        <p class="mt-3">🎮 Nivel actual: <strong>{{ nivel|title }}</strong></p>
+        <p class="mt-3 text-light">🎮 Nivel actual: <strong>{{ nivel|title }}</strong></p>
         <a href="{% url 'juego' %}" class="btn btn-success nivel-btn">Comenzar Juego</a><br>
         <a href="{% url 'seleccion_nivel' %}" class="btn btn-warning  nivel-btn">Seleccionar Nivel</a>
          <a href="{% url 'perfil' %}" class="btn btn-info  nivel-btn">Ver Perfil</a>

@@ -17,7 +17,7 @@
 <body class="app-body">
 
   <!-- 🧭 Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #031d38; height: 100px;">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #031d38;">
     <div class="container d-flex justify-content-between align-items-center">
       <a class="navbar-brand fw-bold mb-0 h1" href="{% url 'index' %}">Juego de Memoria</a>
 
@@ -28,7 +28,7 @@
         <ul class="navbar-nav ms-auto d-flex flex-row">
           {% if user.is_authenticated %}
             <li class="nav-item me-3"><a href="{% url 'perfil' %}" class="nav-link text-light">Perfil</a></li>
-            <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link text-light">Salir</a></li>
+            <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link text-light">Cerrar Secion</a></li>
           {% else %}
             <li class="nav-item me-3"><a href="{% url 'login' %}" class="nav-link text-light">Iniciar sesión</a></li>
             <li class="nav-item"><a href="{% url 'register' %}" class="nav-link text-light">Registrarse</a></li>
@@ -37,6 +37,7 @@
       </div>
     </div>
   </nav>
+  <br><br><br>
 
   <!-- 📄 Contenido -->
   <div class="container py-4">

@@ -3,28 +3,43 @@
 {% load static %}
 
 {% block content %}
-  <div class="container py-4 text-center">
-     <h1 class="mb-4"><img src="{% static 'memory_game/icono.svg' %}" alt="Mi icono" width="50" height="50"> Memory Game</h1>
-    <h2>🧾 Crear Cuenta</h2>
+<div class="container py-4">
 
-    <form method="POST" class="mt-4">
-      {% csrf_token %}
-      <div class="mb-3">
-        <input type="text" name="username" class="form-control text-center " placeholder="Usuario" required>
-      </div>
-      <div class="mb-3">
-        <input type="email" name="email" class="form-control text-center" placeholder="Correo electrónico" required>
-      </div>
-      <div class="mb-3">
-        <input type="password" name="password" class="form-control text-center " placeholder="Contraseña" required>
-      </div>
-      <button type="submit" class="btn btn-success nivel-btn">Registrarse</button>
-    </form>
+  <!-- Card principal -->
+  <div class="card shadow-lg border-0" style="max-width: 500px; margin: 0 auto;">
+    <div class="card-header bg-primary text-white text-center">
+      <h1 class="h5 mb-0">
+        <img src="{% static 'memory_game/icono.svg' %}" alt="Mi icono" width="40" height="40">
+        Juego de Memoria - Registro
+      </h1>
+    </div>
 
-    <p class="mt-3">¿Ya tienes cuenta? <a href="{% url 'login' %}" class="text-info">Inicia sesión</a></p>
+    <div class="card-body text-center bg-light text-dark">
+      <h2 class="mb-3">🧾 Crear Cuenta</h2>
 
-    {% for message in messages %}
-      <div class="alert alert-warning mt-3">{{ message }}</div>
-    {% endfor %}
+      <form method="POST" class="mt-3">
+        {% csrf_token %}
+        <div class="mb-3">
+          <input type="text" name="username" class="form-control text-center" placeholder="Usuario" required>
+        </div>
+        <div class="mb-3">
+          <input type="email" name="email" class="form-control text-center" placeholder="Correo electrónico" required>
+        </div>
+        <div class="mb-3">
+          <input type="password" name="password" class="form-control text-center" placeholder="Contraseña" required>
+        </div>
+        <button type="submit" class="btn btn-success w-100">Registrarse</button>
+      </form>
+
+      <p class="mt-3">¿Ya tienes cuenta? 
+        <a href="{% url 'login' %}" class="text-info fw-bold">Inicia sesión</a>
+      </p>
+
+      {% for message in messages %}
+        <div class="alert alert-warning mt-3">{{ message }}</div>
+      {% endfor %}
+    </div>
   </div>
+
+</div>
 {% endblock %}

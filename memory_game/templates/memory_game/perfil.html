@@ -1,56 +1,106 @@
 {% extends 'memory_game/base.html' %}
 {% block title %}Perfil{% endblock %}
 {% load static %}
+
 {% block content %}
 <div class="center-box">
-  <h2 class="mb- text-light">🏆 Perfil de {{ user.username }}</h2>
+  <!-- Encabezado -->
+  <div class="card shadow-lg border-0 mb-4" style="max-width: 700px; width: 100%;">
+    <div class="card-header bg-primary text-white text-center">
+      <h2 class="h4 mb-0">🏆 Perfil de {{ user.username }}</h2>
+    </div>
 
-  <!-- 📊 Estadísticas generales -->
-  <div class="card bg-secondary text-light mb-4 p-3 w-100 w-md-75 w-lg-50 mx-auto">
-    <p><strong>Total de partidas:</strong> {{ total_partidas }}</p>
-    <p><strong>Victorias:</strong> {{ total_victorias }}</p>
-    <p><strong>Derrotas:</strong> {{ total_derrotas }}</p>
-    <p><strong>Tiempo promedio:</strong> {{ promedio_tiempo }} s</p>
-    <p><strong>Nivel más jugado:</strong> {{ nivel_mas_jugado|title }}</p>
+    <!-- Estadísticas generales -->
+    <div class="row g-3 justify-content-center mb-4">
+      <div class="col-md-4">
+        <div class="card shadow-sm border-0 text-center">
+          <div class="card-body">
+            <h5 class="text-primary">🎮 Partidas</h5>
+            <p class="fs-4 fw-bold">{{ total_partidas }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm border-0 text-center">
+          <div class="card-body">
+            <h5 class="text-success">✅ Victorias</h5>
+            <p class="fs-4 fw-bold">{{ total_victorias }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm border-0 text-center">
+          <div class="card-body">
+            <h5 class="text-danger">❌ Derrotas</h5>
+            <p class="fs-4 fw-bold">{{ total_derrotas }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 justify-content-center mb-4">
+      <div class="col-md-6">
+        <div class="card shadow-sm border-0 text-center">
+          <div class="card-body">
+            <h5 class="text-info">⏱️ Tiempo Promedio</h5>
+            <p class="fs-4 fw-bold">{{ promedio_tiempo }} s</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card shadow-sm border-0 text-center">
+          <div class="card-body">
+            <h5 class="text-warning">⭐ Nivel más jugado</h5>
+            <p class="fs-4 fw-bold">{{ nivel_mas_jugado|title }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-   
-
-  <!-- 🕹️ Tabla de partidas -->
-  <div class="table-responsive mb-4">
-    <table class="table table-dark table-striped table-bordered align-middle text-center">
-      <thead class="table-primary text-dark">
-        <tr>
-          <th>Fecha</th>
-          <th>Nivel</th>
-          <th>Resultado</th>
-          <th>Tiempo (s)</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for partida in page_obj %}
-        <tr>
-          <td>{{ partida.fecha|date:"d/m/Y H:i" }}</td>
-          <td>{{ partida.nivel|title }}</td>
-          <td>
-            {% if partida.resultado == "victoria" %}
-              <span class="badge bg-success">Ganado</span>
-            {% else %}
-              <span class="badge bg-danger">Perdido</span>
-            {% endif %}
-          </td>
-          <td>{{ partida.tiempo_restante|floatformat:2 }}</td>
-        </tr>
-        {% empty %}
-        <tr>
-          <td colspan="4">No hay partidas registradas</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+  <!-- Tabla de partidas -->
+  <div class="card shadow-lg border-0 mb-4" style="max-width: 900px; width: 100%;">
+    <div class="card-header bg-info text-dark text-center">
+      <h3 class="h5 mb-0">🕹️ Historial de Partidas</h3>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-dark table-striped table-bordered align-middle text-center mb-0">
+          <thead class="table-primary text-dark">
+            <tr>
+              <th>Fecha</th>
+              <th>Nivel</th>
+              <th>Resultado</th>
+              <th>Tiempo (s)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for partida in page_obj %}
+            <tr>
+              <td>{{ partida.fecha|date:"d/m/Y H:i" }}</td>
+              <td>{{ partida.nivel|title }}</td>
+              <td>
+                {% if partida.resultado == "victoria" %}
+                <span class="badge bg-success">Ganado</span>
+                {% else %}
+                <span class="badge bg-danger">Perdido</span>
+                {% endif %}
+              </td>
+              <td>{{ partida.tiempo_restante|floatformat:2 }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="4">No hay partidas registradas</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
-  <!-- 📄 Paginación -->
+  <!-- Paginación -->
   {% if page_obj.has_other_pages %}
   <nav aria-label="Paginación de partidas">
     <ul class="pagination justify-content-center">
@@ -63,11 +113,11 @@
       {% endif %}
 
       {% for num in page_obj.paginator.page_range %}
-        {% if page_obj.number == num %}
-          <li class="page-item active"><span class="page-link">{{ num }}</span></li>
-        {% else %}
-          <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-        {% endif %}
+      {% if page_obj.number == num %}
+      <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+      {% else %}
+      <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+      {% endif %}
       {% endfor %}
 
       {% if page_obj.has_next %}
@@ -81,7 +131,7 @@
   </nav>
   {% endif %}
 
-  <a href="{% url 'index' %}" class="btn btn-primary mt-3">Volver al Inicio</a>
+  <!-- Botón volver -->
+  <a href="{% url 'index' %}" class="btn btn-primary nivel-btn-small mt-3">Volver al inicio</a>
 </div>
 {% endblock %}
-

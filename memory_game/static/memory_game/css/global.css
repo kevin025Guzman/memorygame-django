@@ -1,5 +1,6 @@
 body {
-  font-family: 'Poppins', sans-serif;             /* Ocupa toda la altura de la pantalla */
+  font-family: 'Poppins', sans-serif;   
+  padding-top: 120px;          /* Ocupa toda la altura de la pantalla */
 }
 
 body.app-body {
@@ -15,6 +16,18 @@ body.app-body {
   border-radius: 15px;
   overflow: hidden;
 }
+
+.card-header {
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.card-body {
+  background-color: #2c2c3a; /* fondo oscuro elegante */
+  color: #fff;
+}
+
+
 
 /* Botones y textos */
 .btn {
@@ -44,10 +57,26 @@ body.app-body {
   transition: all 0.3s ease;
 }
 
+.nivel-btn-small {
+  font-size: 0.9rem;
+  padding: 8px 0;
+  max-width: 250px;
+}
+
 /* efecto hover */
 .nivel-btn:hover {
   transform: scale(1.05);
   filter: brightness(1.1);
+}
+
+/* efecto hover */
+.nivel-btn-small:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.navbar {
+  padding: 1rem; /* controla la altura con padding */
 }
 
 

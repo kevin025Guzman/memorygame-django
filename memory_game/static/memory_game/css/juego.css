@@ -18,17 +18,29 @@ body {
 .memory-card:active {
   transform: scale(0.95);
 }
+
+
+/* Estados de juego */
 /* Estados de juego */
 .flipped {
-  background-color: #ffc107;
+  background-color: #ffc107; /* amarillo al voltear */
   color: black;
 }
 
+/* ✅ Cuando aciertan */
 .matched {
-  background-color: #28a745;
+  background-color: #28a745 !important; /* verde */
   color: white;
   transform: scale(0.95);
   opacity: 0.9;
+}
+
+/* ❌ Cuando fallan */
+.memory-card.error {
+  background-color: #dc3545 !important; /* rojo */
+  border: 2px solid #a71d2a;
+  color: white;
+  transform: scale(0.95);
 }
 
 /* 📱 Responsividad */

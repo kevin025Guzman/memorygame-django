@@ -3,32 +3,38 @@
 {% load static %}
 
 {% block content %}
-   <div class="center-box">
-        <h1 class="mb-4 text-light"><img src="{% static 'memory_game/icono.svg' %}" alt="Mi icono" width="50" height="50"> Memory Game</h1>
-        {% if user.is_authenticated %}
-        <p class="text-light">Bienvenido, {{ user.username }} 👋!</p>
-       
-        {% if nivel %}
-   
-        <p class="mt-3 text-light">🎮 Nivel actual: <strong>{{ nivel|title }}</strong></p>
-        <a href="{% url 'juego' %}" class="btn btn-success nivel-btn">Comenzar Juego</a><br>
-        <a href="{% url 'seleccion_nivel' %}" class="btn btn-warning  nivel-btn">Seleccionar Nivel</a>
-         <a href="{% url 'perfil' %}" class="btn btn-info  nivel-btn">Ver Perfil</a>
+<div class="center-box">
+    <div class="card shadow-lg border-0" style="max-width: 500px; width: 100%;">
+        <!-- Encabezado de la tarjeta -->
+        <div class="card-header bg-primary text-white text-center">
+            <h1 class="h4 mb-0">
+                <img src="{% static 'memory_game/icono.svg' %}" alt="Mi icono" width="40" height="40" class="me-2">
+                Juego de Memoria
+            </h1>
+        </div>
 
-        {% else %}
-        
-        <a href="{% url 'seleccion_nivel' %}" class="btn btn-warning nivel-btn">Seleccionar Nivel</a>
-        <a href="{% url 'perfil' %}" class="btn btn-info nivel-btn">Ver Perfil</a>
-        {% endif %}
+        <!-- Cuerpo de la tarjeta -->
+        <div class="card-body text-center">
+            {% if user.is_authenticated %}
+                <p class="mb-3">Bienvenido, <strong>{{ user.username }}</strong> 👋!</p>
 
-        <br>
+                {% if nivel %}
+                    <p class="mb-3">🎮 Nivel actual: <strong>{{ nivel|title }}</strong></p>
+                    <a href="{% url 'juego' %}" class="btn btn-success nivel-btn mb-2">Comenzar Juego</a>
+                    <a href="{% url 'seleccion_nivel' %}" class="btn btn-warning nivel-btn mb-2">Seleccionar Nivel</a>
+                    <a href="{% url 'perfil' %}" class="btn btn-info nivel-btn mb-2">Ver Perfil</a>
+                {% else %}
+                    <a href="{% url 'seleccion_nivel' %}" class="btn btn-warning nivel-btn mb-2">Seleccionar Nivel</a>
+                    <a href="{% url 'perfil' %}" class="btn btn-info nivel-btn mb-2">Ver Perfil</a>
+                {% endif %}
 
-        <a href="{% url 'logout' %}" class="btn btn-danger nivel-btn">Cerrar sesión</a>
-        {% else %}
-         <p>Bienvenido 👋!</p>
-        <a href="{% url 'login' %}" class="btn btn-primary nivel-btn">Iniciar Sesión</a>
-        <a href="{% url 'register' %}" class="btn btn-success nivel-btn">Registrarse</a>
-        {% endif %}
+                <a href="{% url 'logout' %}" class="btn btn-danger nivel-btn mt-3">Cerrar sesión</a>
+            {% else %}
+                <p class="mb-3">Bienvenido 👋!</p>
+                <a href="{% url 'login' %}" class="btn btn-primary nivel-btn mb-2">Iniciar Sesión</a>
+                <a href="{% url 'register' %}" class="btn btn-success nivel-btn mb-2">Registrarse</a>
+            {% endif %}
+        </div>
     </div>
-
+</div>
 {% endblock %}

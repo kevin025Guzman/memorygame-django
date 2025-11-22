@@ -1,14 +1,15 @@
 body {
-  font-family: 'Poppins', sans-serif;   
-  padding-top: 120px;          /* Ocupa toda la altura de la pantalla */
+  font-family: 'Poppins', sans-serif;
+  padding-top: 120px;
+  min-height: 100vh;
 }
 
 body.app-body {
-  background: radial-gradient(circle at top, #1e3c72, #2a5298, #0b1524);
-  background-size: cover;        /* La imagen ocupa todo el contenedor */
-  background-position: center;   /* Centrada */
-  background-repeat: no-repeat;  /* No se repite */
-  min-height: 100vh;             /* Ocupa toda la altura de la pantalla */
+  background: radial-gradient(circle at top, #1d82f5, #1457cc, #08439c);
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* Cards generales */
@@ -77,6 +78,117 @@ body.app-body {
 
 .navbar {
   padding: 1rem; /* controla la altura con padding */
+}
+
+/* Auth layout */
+.auth-section {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.auth-section .card {
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.25);
+}
+
+.info-card {
+  background: linear-gradient(135deg, rgba(7, 21, 46, 0.9), rgba(9, 86, 160, 0.85));
+  position: relative;
+  overflow: hidden;
+  min-height: 340px;
+}
+
+.info-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.15), transparent 45%);
+  pointer-events: none;
+}
+
+.info-card__content {
+  position: relative;
+  z-index: 1;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 100%;
+}
+
+.info-card__content .eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.login-card {
+  background-color: rgba(6, 11, 25, 0.85);
+  color: #fff;
+}
+
+.login-card .form-control {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.login-card .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.login-card .form-control:focus {
+  box-shadow: 0 0 0 0.15rem rgba(30, 111, 255, 0.35);
+  border-color: #1e6fff;
+}
+
+.login-card .btn-primary {
+  border: none;
+  border-radius: 15px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, #4285f4, #0f6bdc);
+}
+
+.login-card .btn-primary:hover {
+  filter: brightness(1.05);
+}
+
+@media (max-width: 992px) {
+  body {
+    padding-top: 100px;
+  }
+
+  .auth-section .row {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 576px) {
+  body {
+    padding-top: 90px;
+  }
+
+  .auth-section {
+    padding: 0 1rem;
+  }
+
+  .info-card__content {
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+
+  .login-card {
+    padding: 1.25rem;
+  }
+
+  .login-card .btn-primary {
+    font-size: 1rem;
+  }
 }
 
 

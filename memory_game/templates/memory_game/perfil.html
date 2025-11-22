@@ -4,62 +4,64 @@
 
 {% block content %}
 <div class="center-box">
-  <!-- Encabezado -->
+
+  <!-- 🏆 Encabezado del perfil -->
   <div class="card shadow-lg border-0 mb-4" style="max-width: 700px; width: 100%;">
     <div class="card-header bg-primary text-white text-center">
       <h2 class="h4 mb-0">🏆 Perfil de {{ user.username }}</h2>
     </div>
 
-    <!-- Estadísticas generales -->
-    <div class="row g-3 justify-content-center mb-4">
-      <div class="col-md-4">
-        <div class="card shadow-sm border-0 text-center">
-          <div class="card-body">
-            <h5 class="text-primary">🎮 Partidas</h5>
-            <p class="fs-4 fw-bold">{{ total_partidas }}</p>
+    <!-- 📊 Estadísticas generales -->
+    <div class="card-body bg-light text-dark">
+      <div class="row g-3 justify-content-center mb-4">
+        <div class="col-md-4">
+          <div class="card shadow-sm border-0 text-center">
+            <div class="card-body">
+              <h5 class="text-primary">🎮 Partidas</h5>
+              <p class="fs-4 fw-bold">{{ total_partidas }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card shadow-sm border-0 text-center">
+            <div class="card-body">
+              <h5 class="text-success">✅ Victorias</h5>
+              <p class="fs-4 fw-bold">{{ total_victorias }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card shadow-sm border-0 text-center">
+            <div class="card-body">
+              <h5 class="text-danger">❌ Derrotas</h5>
+              <p class="fs-4 fw-bold">{{ total_derrotas }}</p>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card shadow-sm border-0 text-center">
-          <div class="card-body">
-            <h5 class="text-success">✅ Victorias</h5>
-            <p class="fs-4 fw-bold">{{ total_victorias }}</p>
+
+      <div class="row g-3 justify-content-center mb-4">
+        <div class="col-md-6">
+          <div class="card shadow-sm border-0 text-center">
+            <div class="card-body">
+              <h5 class="text-info">⏱️ Tiempo Promedio</h5>
+              <p class="fs-4 fw-bold">{{ promedio_tiempo }} s</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card shadow-sm border-0 text-center">
-          <div class="card-body">
-            <h5 class="text-danger">❌ Derrotas</h5>
-            <p class="fs-4 fw-bold">{{ total_derrotas }}</p>
+        <div class="col-md-6">
+          <div class="card shadow-sm border-0 text-center">
+            <div class="card-body">
+              <h5 class="text-warning">⭐ Nivel más jugado</h5>
+              <p class="fs-4 fw-bold">{{ nivel_mas_jugado|title }}</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
-    <div class="row g-3 justify-content-center mb-4">
-      <div class="col-md-6">
-        <div class="card shadow-sm border-0 text-center">
-          <div class="card-body">
-            <h5 class="text-info">⏱️ Tiempo Promedio</h5>
-            <p class="fs-4 fw-bold">{{ promedio_tiempo }} s</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="card shadow-sm border-0 text-center">
-          <div class="card-body">
-            <h5 class="text-warning">⭐ Nivel más jugado</h5>
-            <p class="fs-4 fw-bold">{{ nivel_mas_jugado|title }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
 
-  <!-- Tabla de partidas -->
+  <!-- 📋 Tabla de historial de partidas -->
   <div class="card shadow-lg border-0 mb-4" style="max-width: 900px; width: 100%;">
     <div class="card-header bg-info text-dark text-center">
       <h3 class="h5 mb-0">🕹️ Historial de Partidas</h3>
@@ -100,7 +102,7 @@
     </div>
   </div>
 
-  <!-- Paginación -->
+  <!-- 🔁 Paginación -->
   {% if page_obj.has_other_pages %}
   <nav aria-label="Paginación de partidas">
     <ul class="pagination justify-content-center">
@@ -131,7 +133,7 @@
   </nav>
   {% endif %}
 
-  <!-- Botón volver -->
+  <!-- 🔙 Botón volver -->
   <a href="{% url 'index' %}" class="btn btn-primary nivel-btn-small mt-3">Volver al inicio</a>
 </div>
 {% endblock %}

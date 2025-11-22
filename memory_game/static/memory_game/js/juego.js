@@ -152,10 +152,10 @@ function registrarResultado(resultado, tiempoRestante) {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "X-CSRFToken": "{{ csrf_token }}",
+            "X-CSRFToken": csrfToken,
         },
         body: JSON.stringify({
-            nivel: "{{ nivel }}",
+            nivel: nivel,
             resultado: resultado,
             tiempo_restante: tiempoRestante,
         }),

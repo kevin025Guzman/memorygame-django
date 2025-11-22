@@ -4,7 +4,7 @@ body {
 }
 
 body.app-body {
-  background-image: url("/static/memory_game/img/fondos/azul2.jpg");
+  background-image: url("../img/fondos/azul2.jpg");
   background-size: cover;        /* La imagen ocupa todo el contenedor */
   background-position: center;   /* Centrada */
   background-repeat: no-repeat;  /* No se repite */

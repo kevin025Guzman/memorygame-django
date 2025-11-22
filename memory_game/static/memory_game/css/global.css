@@ -4,7 +4,7 @@ body {
 }
 
 body.app-body {
-  background-image: url("../img/fondos/azul2.jpg");
+  background: radial-gradient(circle at top, #1e3c72, #2a5298, #0b1524);
   background-size: cover;        /* La imagen ocupa todo el contenedor */
   background-position: center;   /* Centrada */
   background-repeat: no-repeat;  /* No se repite */

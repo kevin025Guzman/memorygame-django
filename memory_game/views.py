@@ -138,14 +138,15 @@ def perfil(request):
     nivel_mas_jugado_data = partidas.values('nivel').annotate(total=Count('nivel')).order_by('-total').first()
     nivel_mas_jugado = nivel_mas_jugado_data['nivel'] if nivel_mas_jugado_data else 'N/A'
 
+    niveles_validos = ['basico', 'medio', 'avanzado']
     ranking_queryset = (
-        Partida.objects.filter(resultado='victoria')
+        Partida.objects.filter(resultado='victoria', nivel__in=niveles_validos)
         .values('nivel', 'usuario__username')
         .annotate(total_victorias=Count('id'))
         .order_by('nivel', '-total_victorias', 'usuario__username')
     )
 
-    ranking_dict = defaultdict(list)
+    ranking_dict = {nivel: [] for nivel in niveles_validos}
     for entry in ranking_queryset:
         ranking_dict[entry['nivel']].append({
             'username': entry['usuario__username'],
@@ -157,7 +158,7 @@ def perfil(request):
             'nivel': nivel,
             'jugadores': jugadores,
         }
-        for nivel, jugadores in sorted(ranking_dict.items())
+        for nivel, jugadores in ranking_dict.items()
     ]
 
     context = {

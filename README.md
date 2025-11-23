@@ -28,3 +28,8 @@ Aplicación web tipo juego de memoria que permite a usuarios registrados selecci
 
 5. **Migraciones**
    - Se ejecutan automáticamente en cada despliegue gracias al script de entrada.
+
+
+
+!!!IMPORTANTE!!!
+Debido a que el servidor está en la capa gratuita tiene un pequeño shutdown por inactividad así que al ingresar al sitio se debe esperar a que cargue el servicio.

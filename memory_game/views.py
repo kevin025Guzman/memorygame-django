@@ -85,7 +85,7 @@ def juego(request):
         intentos = 12
         tiempo = 80
     else:
-        intentos = 8
+        intentos = 6
         tiempo = 60
 
     contexto = {

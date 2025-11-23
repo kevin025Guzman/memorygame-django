@@ -183,7 +183,7 @@ body {
 
 .memory-card {
     aspect-ratio: 1 / 1;           /* cuadro perfecto */
-    background-color: #0d6efd;
+    background-color: #073b88;
     border-radius: 10px;
     position: relative;
     cursor: pointer;

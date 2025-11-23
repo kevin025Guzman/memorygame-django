@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Partida
+from collections import defaultdict
+
 from django.db.models import Avg, Count
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -136,6 +138,28 @@ def perfil(request):
     nivel_mas_jugado_data = partidas.values('nivel').annotate(total=Count('nivel')).order_by('-total').first()
     nivel_mas_jugado = nivel_mas_jugado_data['nivel'] if nivel_mas_jugado_data else 'N/A'
 
+    ranking_queryset = (
+        Partida.objects.filter(resultado='victoria')
+        .values('nivel', 'usuario__username')
+        .annotate(total_victorias=Count('id'))
+        .order_by('nivel', '-total_victorias', 'usuario__username')
+    )
+
+    ranking_dict = defaultdict(list)
+    for entry in ranking_queryset:
+        ranking_dict[entry['nivel']].append({
+            'username': entry['usuario__username'],
+            'total_victorias': entry['total_victorias'],
+        })
+
+    ranking_victorias = [
+        {
+            'nivel': nivel,
+            'jugadores': jugadores,
+        }
+        for nivel, jugadores in sorted(ranking_dict.items())
+    ]
+
     context = {
         'total_partidas': total_partidas,
         'total_victorias': total_victorias,
@@ -143,6 +167,7 @@ def perfil(request):
         'promedio_tiempo': round(promedio_tiempo, 2),
         'nivel_mas_jugado': nivel_mas_jugado,
         'page_obj': page_obj,
+        'ranking_victorias': ranking_victorias,
     }
 
     return render(request, 'memory_game/perfil.html', context)

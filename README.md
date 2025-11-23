@@ -1,6 +1,10 @@
 # memorygame-django
 Proyecto clase arquitectura de computadoras - MemoryGame - Django-Python
 
+## Descripción
+
+Aplicación web tipo juego de memoria que permite a usuarios registrados seleccionar nivel de dificultad, jugar con tablero 4x4 cronometrado y registrar automáticamente sus resultados. El backend en Django maneja autenticación, persistencia de partidas y estadísticas (historial personal, promedios, nivel más jugado y ranking global de victorias por nivel). El frontend usa Bootstrap + JS personalizado para la lógica del juego, efectos audiovisuales y controles de accesibilidad. El proyecto incluye Dockerfile/compose para despliegue con Gunicorn y scripts que ejecutan migraciones y `collectstatic` al iniciar.
+
 ## Despliegue en Render con Docker
 
 1. **Variables de entorno obligatorias**

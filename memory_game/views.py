@@ -80,7 +80,7 @@ def juego(request):
     # Configuración según nivel
     if nivel == 'basico':
         intentos = 20
-        tiempo = 120
+        tiempo = 130
     elif nivel == 'medio':
         intentos = 12
         tiempo = 80

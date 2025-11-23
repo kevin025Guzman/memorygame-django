@@ -12,8 +12,8 @@ body {
 
 /* Hover en escritorio */
 .memory-card:hover {
-  transform: scale(1.05);
-  background-color: #1a76ff;
+  transform: translateY(-4px);
+  background-color: #0d4fb9;
 }
 .memory-card:active {
   transform: scale(0.95);
@@ -124,10 +124,9 @@ body {
 
 
 .memory-card {
-  aspect-ratio: 1 / 1  !important; 
+  aspect-ratio: 1 / 1;
   width: 100%;
-  padding-top: 100%;
-  background-color: #074199;
+  background-color: #073b88;
   border-radius: 10px;
   display: flex;
   justify-content: center;
